@@ -26,6 +26,9 @@ const mySchema = new mongoose.Schema({
   Desc: {
     type: String,
   },
+  Status: {
+    type: String,
+  },
   Quantity: {
     type: Number,
   },

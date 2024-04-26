@@ -19,12 +19,12 @@ app.post('/sendData', async (req, res) => {
     InvenTag,
     Department,
     Desc,
+    Status,
     Quantity,
     Unit,
     Amount,
     EndUser,
     Date
-
   } = req.body;
   try {
     const reportsCreate = new Inventory({
@@ -36,6 +36,7 @@ app.post('/sendData', async (req, res) => {
       Unit: Unit,
       Amount:Amount,
       EndUser: EndUser,
+      Status: Status,
       Date
     });
 
@@ -55,6 +56,7 @@ app.put('/edit/:item', async (req, res) => {
     InvenTag,
     Desc,
     Quantity,
+    Status,
     Unit,
     Amount,
     EndUser,
@@ -71,20 +73,20 @@ app.put('/edit/:item', async (req, res) => {
       Quantity: Quantity,
       Unit: Unit,
       Amount:Amount,
+      Status: Status,
       EndUser: EndUser,
       Date
     }
     });
-
     if (!result) {
       return res.status(404).json({ error: "Item not found" });
-    }
-    res.status(200).json({ message: 'Updated successfully' });
+    }res.status(200).json({ message: 'Updated successfully' });
   } catch (error) {
     console.error('Error creating report:', error);
     res.status(500).json({ error: 'Error creating report' });
   }
 });
+
 app.get('/GetData', async (req, res) => {
   Inventory.find()
   .then((data) => {
@@ -93,7 +95,6 @@ app.get('/GetData', async (req, res) => {
     console.log(err)
   })
 })
-
 app.delete("/item/:id", async (req, res) => {
   const itemId = req.params.id; //delete item from client
   const data = await Inventory;
@@ -106,7 +107,6 @@ app.delete("/item/:id", async (req, res) => {
     res.status(404).send("Document not found");
   }
 });
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
